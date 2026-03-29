@@ -7,6 +7,7 @@ let formData = {
 
 const form = document.querySelector('.feedback-form');
 
+
 const savedData = localStorage.getItem(STORAGE_KEY);
 
 if (savedData) {
@@ -21,24 +22,19 @@ if (savedData) {
   form.elements.message.value = formData.message;
 }
 
+
 form.addEventListener('input', event => {
   const { name, value } = event.target;
 
-  // сохраняем как есть
   formData[name] = value;
-
-  // в localStorage — без пробелов по краям
-  const trimmedData = {
-    email: formData.email.trim(),
-    message: formData.message.trim(),
-  };
-
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(trimmedData));
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(formData));
 });
+
 
 form.addEventListener('submit', event => {
   event.preventDefault();
 
+ 
   if (
     formData.email.trim() === '' ||
     formData.message.trim() === ''
@@ -47,10 +43,11 @@ form.addEventListener('submit', event => {
     return;
   }
 
-  // обновляем formData перед выводом
+
   formData.email = formData.email.trim();
   formData.message = formData.message.trim();
 
+ 
   console.log(formData);
 
   localStorage.removeItem(STORAGE_KEY);
