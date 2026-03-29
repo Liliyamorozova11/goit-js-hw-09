@@ -24,10 +24,10 @@ if (savedData) {
 form.addEventListener('input', event => {
   const { name, value } = event.target;
 
-  // сохраняем реальное значение
+  // сохраняем как есть
   formData[name] = value;
 
-  // в localStorage записываем без пробелов по краям
+  // в localStorage — без пробелов по краям
   const trimmedData = {
     email: formData.email.trim(),
     message: formData.message.trim(),
@@ -47,10 +47,11 @@ form.addEventListener('submit', event => {
     return;
   }
 
-  console.log({
-    email: formData.email.trim(),
-    message: formData.message.trim(),
-  });
+  // обновляем formData перед выводом
+  formData.email = formData.email.trim();
+  formData.message = formData.message.trim();
+
+  console.log(formData);
 
   localStorage.removeItem(STORAGE_KEY);
   form.reset();
